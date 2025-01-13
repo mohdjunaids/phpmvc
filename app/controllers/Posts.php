@@ -1,0 +1,30 @@
+<?php
+
+class Posts extends Controller
+{
+    private $postModel;
+
+    public function __construct()
+    {
+        if (!isLoggedIn()) {
+            redirect('users/login');
+            
+        }
+        $this->postModel = $this->model('Post');
+
+    }
+
+    public function index(){
+        $posts = $this->postModel->getPosts();
+        $data = [
+            'posts' => $posts
+        ];
+        // print_r($data);
+        // echo "posts reloded";
+        $this->view('posts/index',$data);
+    }
+        
+
+}
+
+
